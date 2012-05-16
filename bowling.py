@@ -10,6 +10,7 @@ class Game:
 		
 		f = self.frames[-1]
 		f.roll(pins)
+		return f.is_complete()
 
 	def running_total(self):
 		result = []
@@ -75,3 +76,55 @@ class Frame10(Frame):
 
 	def total(self):
 		return self.bowls[0] if self.bowls else 0
+
+class Player():
+	def __init__(self, name):
+		self.name = name
+		self.game = Game()
+
+	def turn(self, pins):
+		return self.game.roll(pins)
+
+class Bowling():
+
+	def __init__(self):
+		self.players = []
+
+	def play(self):
+		print "Bowling!"
+		print "Enter player names.  Blank to finish"
+		self._enter_players()
+
+		for frame in range(1,11):
+			self.sep()
+			print 'Frame ', frame
+			self.sep()
+			for player in self.players:
+				while not self._turn(player):
+					pass
+
+	def _turn(self, player):
+		print 'Turn for ', player.name
+		#TODO validate input - type and value
+		pins = int(raw_input('Pins: '))
+		return player.turn(pins)
+
+	def _enter_players(self):
+		while True:
+			name = raw_input('Enter name: ')
+			if name == '':
+				break
+			if(any(name == player.name for player in self.players)):
+				print 'Name already taken already. Please enter another.'
+			else:
+				self.players.append(Player(name))
+		if not self.players:
+			print 'Zero players.  No game to be played :('
+			exit()
+	
+	def sep(self):
+		print "==========================="
+
+if __name__ == '__main__':
+	b = Bowling()
+	b.play()
