@@ -96,17 +96,28 @@ class Bowling():
 		self._enter_players()
 
 		for frame in range(1,11):
-			self.sep()
+			self.dsep()
 			print 'Frame ', frame
 			self.sep()
 			for player in self.players:
 				while not self._turn(player):
 					pass
+			self._scoreboard()
+
+		winner = max(self.players, key = lambda p : p.game.total())
+		print "The winner is", winner.name
 
 	def _turn(self, player):
-		print 'Turn for ', player.name
-		#TODO validate input - type and value
-		pins = int(raw_input('Pins: '))
+		while True:
+			print 'Turn for', player.name
+			try:
+				pins = int(raw_input('Pins: '))
+				if not pins in range(0,11):
+					raise ValueError
+				break
+			except ValueError:
+				print "Number of pins must be between 0 and 10"
+
 		return player.turn(pins)
 
 	def _enter_players(self):
@@ -122,8 +133,20 @@ class Bowling():
 			print 'Zero players.  No game to be played :('
 			exit()
 	
+	def _scoreboard(self):
+		for player in self.players:
+			game = player.game
+			self.sep()
+			print player.name
+			for i, val in enumerate(game.frames):
+				print val.bowls,
+			print '\n', game.running_total()
+		print "Team total is ", reduce(lambda acc, player: acc + player.game.total(), self.players, 0)
+
+	def dsep(self):
+		print "=" * 100
 	def sep(self):
-		print "==========================="
+		print "-" * 100
 
 if __name__ == '__main__':
 	b = Bowling()
