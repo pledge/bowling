@@ -91,7 +91,7 @@ class Bowling():
 		self.players = []
 
 	def play(self):
-		print "Bowling!"
+		self.title()
 		print "Enter player names.  Blank to finish"
 		self._enter_players()
 
@@ -147,7 +147,17 @@ class Bowling():
 		print "=" * 100
 	def sep(self):
 		print "-" * 100
-
+	def title(self):
+		message = """
+ mmmmm                ""#      "                 
+ #    #  mmm  m     m   #    mmm    m mm    mmmm 
+ #mmmm" #" "# "m m m"   #      #    #"  #  #" "# 
+ #    # #   #  #m#m#    #      #    #   #  #   # 
+ #mmmm" "#m#"   # #     "mm  mm#mm  #   #  "#m"# 
+                                            m  # 
+                                             ""  
+"""
+		print message
 if __name__ == '__main__':
 	b = Bowling()
 	b.play()
