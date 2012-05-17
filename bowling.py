@@ -138,10 +138,11 @@ class Bowling():
 			game = player.game
 			self.sep()
 			print player.name
+			print 'Frames',
 			for i, val in enumerate(game.frames):
 				print val.bowls,
-			print '\n', game.running_total()
-		print "Team total is ", reduce(lambda acc, player: acc + player.game.total(), self.players, 0)
+			print '\n Total', game.running_total()
+		print "Team total is", reduce(lambda acc, player: acc + player.game.total(), self.players, 0)
 
 	def dsep(self):
 		print "=" * 100
