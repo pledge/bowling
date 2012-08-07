@@ -35,6 +35,3 @@ The name of the winner is displayed at the end of the game.
 No dependencies.  Python 2.5+  
 `python bowling.py`  
 `python bowling_test.py`
-
-
-
